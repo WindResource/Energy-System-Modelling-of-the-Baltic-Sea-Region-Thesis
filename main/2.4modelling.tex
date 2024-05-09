@@ -48,9 +48,10 @@ Where:
 \subsection*{Total Capacity Constraint}
 Ensure the selected wind farms collectively meet a minimum required capacity.
 \begin{equation}
-    \sum_{wf \in \mathcal{W}} x_{wf} \cdot \text{C}_{\text{WF}}[wf] \geq \sum_{wf \in \mathcal{W}} \text{C}_{\text{WF}}[wf]
+    \sum_{wf \in \mathcal{W}} x_{wf} \cdot \text{C}_{\text{WF}}[wf] \geq \sum_{wf \in \mathcal{W}} \text{C}_{\text{WF}}[wf] \quad \quad x_{wf} \in \{0, 1\}
 \end{equation}
 
+lkjlj
 \subsection*{Capacity Constraints}
 \subsubsection*{Connection from Wind Farms to Energy Hubs}
 Ensure each selected wind farm is connected to exactly one energy hub, and the connection capacity matches the selected wind farm's capacity.
