@@ -1,0 +1,54 @@
+\section{Pre-Processing}
+This section outlines the boundary conditions, fluid model and material properties defined in CFX-Pre, a pre-processing software component within the ANSYS CFX CFD simulation suite. The software component essentially prepares the input files for the ANSYS CFX-Solver Manager. 
+
+\subsection{Boundary Conditions}
+This section outlines the boundary conditions defined in CFX-Pre. Figure \ref{fig:compdomain} displays the graphical interface of CFX-Pre. The grey inclined rectangle represents the computational domain. The left boundary of the domain is the inlet, and the right boundary is the outlet, both depicted with arrows signalling the direction of the fluid flow. The top and bottom boundaries of the domain are the far-field, and the front and back boundary planes are the sides. The wing and flap elements' boundaries are found at the domain's centre.
+
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.6\textwidth]{Fig/Boundaryconditions.png}
+  \caption{The computational domain of the two-element airfoil with boundary conditions, generated in CFX-Pre.}
+  \label{fig:compdomain}
+\end{figure}
+
+
+
+\subsubsection{Inlet and Outlet Conditions}
+For the inlet boundary, the mass and momentum condition is defined with a total pressure set at a relative value of 2448.34 Pa. The flow direction is defined as normal to the boundary condition, and the turbulence is set with a turbulence intensity of 1\%. The low turbulence intensity benefits the accuracy of the k-omega model as it is less accurate in anisotropic turbulence. \\
+
+The total pressure, or stagnation pressure, is the pressure a fluid attains when brought to rest isentropically. In this case, the total pressure is calculated from the isentropic relation of an ideal gas, factored by the static pressure. The relative total pressure is calculated by subtracting the static pressure from the total pressure. Resulting in the following equation:
+
+\begin{equation}
+    P_{\text{total,relative}} = P_{\text{total}} - P_{\text{static}} = P_{\text{static}} \left( 1 + \frac{\gamma - 1}{2} M^2 \right)^\frac{\gamma}{\gamma - 1} - P_{\text{static}}
+\end{equation}
+
+$P_{\text{static}}$ is the static pressure, given as 101325 $Pa$, $\gamma$ is the specific heat ratio for air, 1.4, and $M$ is the Mach number, 0.185.\\
+
+For the outlet boundary, the mass and momentum condition is defined with a static pressure set at a relative value of 0 Pa. The static pressure equals the ambient static pressure. The relative value is, therefore, 0 Pa as it's relative to ambient conditions.
+
+\subsubsection{Wing and Flap Boundaries}
+For the wing boundary, the mass and momentum condition is defined as a no-slip wall with a wall roughness of a smooth wall—idem for the flap boundary.  In CFX-Pre, a smooth wall is defined as a mass and momentum boundary condition representing a surface with no slip and impermeable characteristics. When fluid flows over or along a smooth wall, the particles adhere to the wall's surface and do not penetrate it. Additionally, there is no relative motion between the fluid and the wall, resulting in a zero velocity gradient at the wall.
+
+
+\subsubsection{Farfield and Sides}
+The mass and momentum condition is defined as a free slip wall for the far-field boundary. A free slip wall is a boundary condition that allows fluid to slip tangentially but remains impermeable. It is applied at far-field boundaries to simulate open space conditions, enabling fluid to adjust tangential velocity while preventing penetration. \\
+
+The mass and momentum condition is defined as a symmetry for the sides boundary. The symmetry boundary condition is often applied to the sides of the domain to simulate mirrored behaviour, where flow variables remain unchanged across the boundary—reducing computational effort in symmetric flow scenarios by simulating only a portion of the domain.
+
+
+
+\subsection{Domain and Material properties}
+For the computational domain, the generalised k-omega model with its default parameters is selected for the turbulence model. The general k-omega model with default parameters is chosen for its versatility and accuracy in predicting turbulence across various flow conditions. Additionally, the heat transfer is selected to be isothermal with an ambient fluid temperature of 293K. The fluid model is chosen to be isothermal to negate temperature effects, enabling simplicity and a more focused approach to the aerodynamics of the two-element airfoil.\\
+
+The dynamic viscosity of the ideal gas material property is calculated at 293 K using Sutherland's law. The law adjusts a reference dynamic viscosity ($\mu_0$= $1.716\cdot10^-5$ $Pa\cdot s$ at 273.15 K) to the temperature required. The equation for Sutherland's law is:
+
+\begin{equation}
+    \mu = \mu_0 \left( \frac{T}{T_0} \right)^{\frac{3}{2}} \frac{T_0 + S}{T + S}
+\end{equation}
+
+$S$ denotes Sutherland's constant for air, which is 110 K. The dynamic viscosity $\mu$ of air at 293 K is calculated to be $1.813 \times 10^{-5} \ \text{Pa}\cdot \text{s}$.
+
+
+
+

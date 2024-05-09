@@ -1,0 +1,119 @@
+{
+    "files.exclude": {
+        "**/.git": false
+    },
+    "git.confirmSync": false,
+    "remote.autoForwardPortsSource": "hybrid",
+    "git.autofetch": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "indentRainbow.indicatorStyle": "light",
+    "git.suggestSmartCommit": false,
+    "explorer.confirmDelete": false,
+    "workbench.colorTheme": "Andromeda",
+    "explorer.confirmDragAndDrop": false,
+    "bitoAI.codeCompletion.enableAutoCompletion": true,
+    "bitoAI.codeCompletion.enableCommentToCode": true,
+    "editor.inlineSuggest.showToolbar": "onHover",
+    "latex-workshop.latex.tools": [
+        {
+            "name": "pdflatex",
+            "command": "C:/Users/cflde/AppData/Local/Programs/MiKTeX/miktex/bin/x64/pdflatex.exe",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "latexmk",
+            "command": "C:/Users/cflde/AppData/Local/Programs/MiKTeX/miktex/bin/x64/latexmk.exe",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        },
+        {
+            "name": "biber",
+            "command": "C:/Users/cflde/AppData/Local/Programs/MiKTeX/miktex/bin/x64/biber.exe",
+            "args": [
+                "%DOCFILE%"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "pdflatex ➞ biber ➞ pdflatex",
+            "tools": [
+                "pdflatex",
+                "biber",
+                "pdflatex",
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            "tools": [
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "latexmk",
+            "tools": [
+                "latexmk"
+            ]
+        }
+    ],
+    "latex-workshop.latex.rootFile.useSubFile": false,
+    "latex-workshop.latex.rootFile.doNotPrompt": true,
+    "latex-workshop.latex.rootFile.auto": true,
+    "latex-workshop.latex.autoBuild.run": "onFileChange",
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.aux",
+        "*.bbl",
+        "*.blg",
+        "*.idx",
+        "*.ind",
+        "*.lof",
+        "*.lot",
+        "*.out",
+        "*.toc",
+        "*.acn",
+        "*.acr",
+        "*.alg",
+        "*.glg",
+        "*.glo",
+        "*.gls",
+        "*.fls",
+        "*.log",
+        "*.fdb_latexmk",
+        "*.snm",
+        "*.synctex(busy)",
+        "*.synctex.gz(busy)",
+        "*.nav",
+        "*.vrb",
+        "*.bcf",
+        "*.run.xml"
+    ]
+}

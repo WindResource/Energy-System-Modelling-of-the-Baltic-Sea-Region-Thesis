@@ -1,0 +1,60 @@
+\section{Numerical Solver}
+This section discusses the convergence of the CFX Solver Manager, a software component within the Ansys CFX suite designed to facilitate the CFD simulations' setup, control, and monitoring. The numerical solver in the CFX Solver Manager discretizes the computational domain and iteratively solves conservation equations for mass, momentum, and energy within discrete control volumes until a converged solution is obtained.
+
+
+\subsection{Convergence}
+
+In this section, the numerical solver solves three different computational meshes of the two-element airfoil. These consist of a coarse mesh at an airfoil angle of attack of 6 degrees (Figure \ref{fig:RMScoarse6}), a fine mesh at an airfoil angle of attack of 6 degrees (Figure \ref{fig:RMSfine6}), and a fine mesh at an airfoil angle of attack of 13.1 degrees (Figure \ref{fig:RMSfine13.1}). \\
+
+
+On the horizontal axis is the accumulated timestep of the iterative solver, and on the vertical axis are the iterative solver's RMS residuals in log scale. The residual target is 1E-6, meaning the convergence is satisfied when the highest RMS residual value is below the residual target. The last timestep indicates the value of the last timestep before the desired convergence at the residual target is reached. \\
+
+In CFX Solver Manager, RMS residuals measure the convergence and accuracy of a CFD simulation. These residuals represent various variables' root-mean-square (RMS) values and help quantify the discrepancy between the current numerical solution and the converged solution. RMS P-Mass relates to pressure conservation, RMS U-Mom and RMS V-Mom are for momentum equations in the x and y directions, RMS K-TurbKE represents turbulent kinetic energy, and RMS O-TurbFreq deals with turbulent frequency. Lower RMS residuals signify better convergence and simulation accuracy. \\
+
+The coarse mesh at a 6-degree angle of attack reaches the residual target at 734 timesteps, the fine mesh at a 6-degree angle of attack at 640 timesteps, and the fine mesh at a 13.1-degree angle of attack at 581 timesteps. Despite increasing domain resolution and flow complexity, fewer timesteps are needed to reach the residual target. \\
+
+For the transition from a coarse to a fine mesh, a finer mesh offers a better spatial resolution that enhances the accuracy and stability of numerical simulations, which is particularly important for turbulence modelling. This increased precision can lead to more efficient convergence as the solver captures the flow features more accurately. \\
+
+Considering the 13.1-degree angle of attack, the k-omega turbulence model is more effective at higher angles due to its ability to capture the transition and the effects of flow separation, which become more pronounced as the angle of attack increases. Consequently, the solver converges quicker because the flow features at higher angles are inherently more aligned with the strengths of the turbulence model. \\
+
+At the start of the simulation, the K-TurbKE and O-TrubFreq RMS residuals show more significant fluctuations from the coarse mesh to the fine mesh. However, these fluctuations slightly decrease from the 6 to 13.1-degree angle of attack. This increase in fluctuation is expected for a finer mesh due to its increased sensitivity to disturbances. The slight decrease can be explained by the solver being more effective at this angle of attack, as previously stated. \\
+
+
+
+% In CFD simulations using RANS models, RMS residuals such as P-Mass, U-Mom, V-Mom, W-Mom, K-TurbKE, and O-TurbFreq are crucial for evaluating convergence. These values, indicative of iteration discrepancies, should ideally decrease over time, signalling a stable and accurate solution. The provided figures, charting these RMS residuals against accumulated timesteps, are key in monitoring this convergence. They not only illustrate the simulation's progress towards stability but also help in diagnosing potential setup issues. \\
+
+% A consistent downward trend in RMS values is observed in the figures, a characteristic feature of aerodynamic simulations. This trend indicates the solver's effective adaptation to the flow dynamics. Notably, the P-Mass and momentum residuals show a sharp decline initially, followed by a gradual decrease. The turbulence residuals (K-TurbKE and O-TurbFreq) also reduce over time, though less steeply, due to the inherent complexities in turbulence modelling. \\
+
+% Assessing the convergence quality, the residual target 1E-6 is a critical benchmark. The figures demonstrate that all variables approach this target, with the final timestep (within the 0-2500 range) indicated by vertical lines showing residuals near or below this target. This behaviour suggests successful convergence, indicating that the simulation setup—mesh, boundary conditions, and solver settings—is suitable for the intended aerodynamic analysis. The proximity of residuals to the target at the last timestep affirms the reliability and accuracy of the simulation results.
+
+
+
+\begin{figure}[H]
+  \centering
+  % Third pair of coarse and fine mesh images
+  \begin{subfigure}[b]{0.75\textwidth}
+    \includegraphics[width=\textwidth]{Fig/6degrees_convergence.png}
+    \caption{RMS residuals coarse mesh at 6-degrees AoA}
+    \label{fig:RMScoarse6}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.75\textwidth}
+    \includegraphics[width=\textwidth]{Fig/6degrees_fine_convergence.png}
+    \caption{RMS Residuals fine mesh at 6-degrees AoA}
+    \label{fig:RMSfine6}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.75\textwidth}
+    \includegraphics[width=\textwidth]{Fig/6degrees_fine_convergence.png}
+    \caption{RMS Residuals fine mesh at 13.1-degrees AoA}
+    \label{fig:RMSfine13.1}
+  \end{subfigure}
+  \caption{Convergence behaviour of the RMS residuals for a coarse and fine mesh at a 6-degree angle of attack (AoA) and a fine mesh at a 13.1-degree angle of attack of the two-element airfoil.}
+  \label{fig:RMS}
+\end{figure}
+
+
+
+
+
+

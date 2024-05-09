@@ -1,0 +1,27 @@
+\chapter{Modelling}
+
+The objective function aims to minimize the total cost of an energy system configuration by summing up various cost components. It includes expenses related to selected wind farms, operational costs of energy hubs, and expenditures on export cables connecting wind farms to energy hubs and energy hubs to onshore substations. The function iterates over viable options for each component, aggregating their respective costs. By minimizing this total cost, the optimization process seeks an efficient configuration that balances the need for renewable energy generation with cost-effectiveness. \\
+
+
+To express the objective function in a mathematical equation, you can represent it as the sum of individual costs:
+
+The objective function \( \text{global\_cost\_obj} \) can be represented as:
+
+\begin{equation}
+\label{eq:objective_function}
+\text{\small \emph{Minimize:} } \sum_{\substack{\text{wind} \\ \text{farms}}} C_{WF} + 
+\sum_{\substack{\text{energy} \\ \text{hubs}}} C_{EH} + 
+\sum_{\substack{\text{onshore} \\ \text{substations}}} C_{ONSS} +
+\sum_{\substack{\text{export} \\ \text{cables 1}}} C_{EC1} + 
+\sum_{\substack{\text{export} \\ \text{cables 2}}} C_{EC2}
+\end{equation}
+
+
+Where:
+\begin{itemize}
+    \item \( \sum_{\substack{\text{wind} \\ \text{farms}}} C_{WF} \) denotes the summation over the total cost of all selected wind farms,
+    \item \( \sum_{\substack{\text{energy} \\ \text{hubs}}} C_{EH} \) denotes the summation over the total cost of all selected energy hubs,
+    \item \( \sum_{\substack{\text{onshore} \\ \text{substations}}} C_{ONSS} \) denotes the summation over the total cost of all selected onshore substations,
+    \item \( \sum_{\substack{\text{export} \\ \text{cables 1}}} C_{EC1} \) denotes the summation over the total cost of export cables connecting wind farms to energy hubs,
+    \item \( \sum_{\substack{\text{export} \\ \text{cables 2}}} C_{EC2} \) denotes the summation over the total cost of export cables connecting energy hubs to onshore substations.
+\end{itemize}

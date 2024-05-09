@@ -1,0 +1,80 @@
+% !TEX root = main.tex
+
+% Preamble
+\documentclass[11pt]{report}
+\hbadness=10000
+
+% Load a custom .sty file that includes all required packages
+\usepackage{packages} % Replace 'packages.sty' with actual package names if needed
+
+% Package for setting line spacing
+\usepackage{setspace}
+
+% Uncomment if acronyms and nomenclature files are used
+%\input{acronym} % Load acronyms
+%\input{nomencl} % Load nomenclature
+
+% Bibliography setup with BibLaTeX
+\addbibresource{refs.bib} % Add bibliography file
+
+% Set page margins
+\geometry{
+  a4paper,
+  left=20mm,
+  right=20mm,
+  top=15mm,
+  bottom=30mm
+}
+
+% Remove paragraph indentation
+\setlength{\parindent}{0pt}
+
+% Import titlesec package
+\usepackage{titlesec}
+
+% Format chapter, section, subsection, and subsubsection headings
+\titleformat{\chapter}{\normalfont\huge\bfseries}{\thechapter.}{1em}{}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+
+% Document content begins
+\begin{document}
+
+% Set page numbering to arabic
+\pagenumbering{arabic}
+
+% Include the cover page
+\input{cover.tex}
+\newpage
+
+% Include main content chapters
+% Uncomment if summary is used
+%\input{Main/summary}
+
+% Include chapters from Main directory
+%\input{Main/1.1Introduction}
+%\input{Main/1.2Objectives}
+
+% \input{Main/2.1Background}
+% \input{Main/2.2Calculations}
+% \input{Main/2.3Geoprocessing}
+\input{main/2.4modelling.tex}
+% \input{Main/2.5Casestudies}
+
+% \input{Main/3.1Conclusion}
+% \input{Main/3.2Discussion}
+
+
+
+% New page and reset page numbering for bibliography
+\newpage
+\pagenumbering{gobble} % Removes page numbers
+
+% Include all references regardless of whether they were cited
+%\nocite{*}
+%\printbibliography[heading=bibintoc, title={Bibliography}]
+
+% End of document content
+\end{document}

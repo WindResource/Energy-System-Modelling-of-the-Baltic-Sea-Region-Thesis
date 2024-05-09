@@ -1,0 +1,71 @@
+% Temporarily change geometry for the title page
+\newgeometry{
+    left=10mm,  % Removes left margin
+    right=10mm, % Removes right margin
+    top=5mm,   % Removes top margin
+    bottom=5mm % Removes bottom margin
+}
+
+\begin{titlepage}
+    \begin{tikzpicture}[remember picture, overlay]
+        % Cover image on the left side of the page
+        \node[anchor=north west, inner sep=0] at ([xshift=0mm,yshift=-40mm]current page.north west) {
+            \includegraphics[height=0.7\paperheight,width=.55\paperwidth,keepaspectratio,
+            clip,trim=60 0 180 0]{Figure/Cover/Relief_Map_of_Baltic_Sea.png}
+        };
+
+        % Logos aligned horizontally on the top left
+        \node[anchor=north west, inner sep=10mm] at ([xshift=-5mm,yshift=0mm]current page.north west) {
+            \begin{minipage}[t]{0.55\paperwidth}
+                \begin{minipage}[c]{0.4\linewidth}
+                    \includegraphics[width=\linewidth]{Figure/Cover/TUDelft_logo_rgb.png}
+                \end{minipage}
+                \hspace{0.5cm} % Space between the logos
+                \begin{minipage}[c]{0.4\linewidth}
+                    \includegraphics[width=\linewidth]{Figure/Cover/logo_wb.png}
+                \end{minipage}
+            \end{minipage}
+        };
+
+        % Thesis title and other information in the middle right
+        \node[anchor=center, inner sep=0] at ([xshift=-50mm,yshift=0]current page.east) {
+            \begin{minipage}[c]{0.4\paperwidth}
+                \begin{spacing}{1.2}
+                {\huge Energy System Modelling\par}
+                {\huge of the Baltic Sea Region:\par}
+                {\huge A Techno-Economic\par}
+                {\huge Optimisation of\par}
+                {\huge Offshore Wind Farms,\par}
+                {\huge Substations, and \par}
+                {\huge Electrical Infrastructure \par}
+                {\huge for Predicting Future \par}
+                {\huge Strategic Development \par}
+                \vspace{2cm}
+                {\Large\bfseries Constantijn F.L. de Wilt\par}
+                \vspace{0.5cm}
+                {\Large Master Thesis\par}
+                {\Large \today\par}
+                \end{spacing}
+            \end{minipage}
+        };
+
+        % Supervisors and other details at the bottom left
+        \node[anchor=south west, inner sep=0] at ([xshift=5mm,yshift=20mm]current page.south west) {
+            \begin{minipage}[t]{0.9\textwidth}
+                {\setlength{\extrarowheight}{10pt}
+                \begin{tabular}{@{}rl@{}}
+                    \Large Degree:      & \Large MSc Sustainable Energy Technology \\
+                    \Large Supervisors: & \Large Michiel Zaayer (Delft University of Technology)\\
+                                        & \Large Marco Plantema (Witteveen+Bos)\\
+                \end{tabular}}
+            \end{minipage}
+        };
+    \end{tikzpicture}
+
+    % Clear the rest of the page to prevent overlap
+    \null
+    \newpage
+\end{titlepage}
+
+% Restore the geometry for the rest of the document
+\restoregeometry

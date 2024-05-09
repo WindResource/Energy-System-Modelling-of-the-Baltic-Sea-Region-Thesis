@@ -1,0 +1,138 @@
+\section{Mesh Generation}
+
+This section outlines the steps to generate a structured mesh for a two-element airfoil using Ansys ICEM CFD, a pre-processing software tool to generate high-quality meshes for complex geometric models. It provides various tools and capabilities for mesh generation and manipulation, ensuring that the input geometry is divided into discrete elements.
+
+\subsection{Blocking Strategy}
+Mesh generation starts by defining a computational domain in ICEM CFD, which in this case is a rectangle encompassing a large far-field area (Figure \ref{fig:coarse1}, \ref{fig:fine1}). The rectangular area is on an incline to simulate the flow around the two-element airfoil at, in this case, an angle of attack of 6 degrees. This definition is crucial to prevent the far-field boundary conditions from affecting the airfoil's local flow conditions and to allow the upstream flow to stabilize before engaging with the airfoil. This consideration is important as far-field influences can potentially skew the flow behaviour around the airfoil, leading to inaccurate solver results. \\
+
+Subsequently, two O-grid block structures are implemented, surrounding the wing and flap elements of the airfoil section (Figure \ref{fig:coarse2},\ref{fig:fine2}). The complexity of this task lies in constructing the two O-grid blocks around the two separate elements while maintaining a structured grid with edges that continue from the airfoil to the far-field region. Ensuring grid orthogonality and minimal skewness is critical as these characteristics reduce numerical diffusion, a phenomenon where computational errors can reduce the sharpness of the flow features. \\
+
+A block structure was developed to ensure orthogonality and minimal skewness that essentially passes between the wing and the flap elements (Figure \ref{fig:coarse3}, \ref{fig:fine3}). This S-shape ensures that the structured mesh continues from the airfoil region to the far-field region. Another block structure is developed around the trailing edges of the airfoil elements (Figure \ref{fig:coarse4}, \ref{fig:fine4}). This block structure is created by collapsing blocks downstream of the trailing edges, creating symmetry around the edges. This approach ensures that the edges maintain orthogonality.
+
+
+\subsection{Pre-Mesh Configuration}
+After creating the multiblock structure, the pre-mesh is defined by setting the edge parameters of the blocks. The edges from the far field to the O-grid were defined with an exponential mesh law where the mesh develops from coarse to increasingly fine towards the O-grid block structure. The mesh is fine close to the two-element airfoil and coarse in the far field, to strike a balance between high resolution in the area of interest and savings of computational cost in the far-field. The edges from the O-grid towards the wing and flap elements of the two-element airfoil were defined with an exponential mesh law. This mesh section develops from fine to very fine towards the boundary of the wing and flap element, down to 0.0002 m. The airfoil's boundary layer necessitates a highly refined mesh due to the layer's sensitivity to shear stress and its influence on aerodynamic performance. The edges of the blocks surrounding the elements of the airfoil and the O-grid block structures were defined with a bi-geometric mesh law.
+
+
+
+\subsection{Mesh Refinement}
+The initial coarse mesh (Figure \ref{fig:coarse1}, \ref{fig:coarse2}, \ref{fig:coarse3}, \ref{fig:coarse4}) is refined (Figure \ref{fig:fine1}, \ref{fig:fine2}, \ref{fig:fine3}, \ref{fig:coarse4}) to capture the specific flow characteristics around the airfoil. A fourfold refinement is applied to edges near the O-grid, ensuring that the boundary layer has the necessary level of detail. A twofold refinement is designated for all other edges to ensure the mesh's overall quality and to facilitate convergence within the solver.
+
+\subsection{Translation to 3D}
+The final step involves translating the 2D pre-mesh into a 3D structure, a necessity for Ansys CFX, which only computes in three dimensions. A minimal translation of 0.0001 m ensures that the mesh's alignment is maintained in the 2D plane. The coarse and fine meshes are then loaded from the blocking and exported for pre-processing.
+
+
+
+
+
+\begin{figure}[H]
+  \centering
+  % First pair of coarse and fine mesh images
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Fig/mesh_coarse_1.png}
+    \caption{Coarse Mesh A}
+    \label{fig:coarse1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Fig/mesh_fine_1.png}
+    \caption{Fine Mesh A}
+    \label{fig:fine1}
+  \end{subfigure}
+
+  % Second pair of coarse and fine mesh images
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Fig/mesh_coarse_2.png}
+    \caption{Coarse Mesh B}
+    \label{fig:coarse2}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Fig/mesh_fine_2.png}
+    \caption{Fine Mesh B}
+    \label{fig:fine2}
+  \end{subfigure}
+
+  \caption{Coarse and fine structured multiblock meshes the two-element airfoil's computational domain generated in ICEM CFD. The coarse mesh (\ref{fig:coarse1},\ref{fig:coarse2}) compares with the fine mesh (\ref{fig:fine1},\ref{fig:fine2}). Coarse and fine meshes A highlight the inclined rectangular computational domain. Coarse and fine meshes B highlight the two O-grid block structures surrounding the wing and flap elements.}
+  \label{fig:meshComparisonPart1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  % Third pair of coarse and fine mesh images
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Fig/mesh_coarse_3.png}
+    \caption{Coarse Mesh C}
+    \label{fig:coarse3}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Fig/mesh_fine_3.png}
+    \caption{Fine Mesh C}
+    \label{fig:fine3}
+  \end{subfigure}
+
+  % Fourth pair of coarse and fine mesh images
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Fig/mesh_coarse_4.png}
+    \caption{Coarse Mesh D}
+    \label{fig:coarse4}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Fig/mesh_fine_4.png}
+    \caption{Fine Mesh D}
+    \label{fig:fine4}
+  \end{subfigure}
+
+   \caption{Coarse and fine structured multiblock meshes of the two-element airfoil's computational domain generated in Ansys ICEM CFD. The coarse mesh (\ref{fig:coarse3},\ref{fig:coarse4}) compares with the fine mesh (\ref{fig:fine3},\ref{fig:fine4}). Coarse and fine meshes C highlight the S-shaped block structure and the block structure at the wing elements' edge. Coarse and fine meshes D highlight the block structure at the flap element's edge.}
+  \label{fig:meshComparisonPart2}
+\end{figure}
+
+
+\subsection{The 3x3x3 Determinant}
+
+% - Explanation of the 3x3x3 Determinant
+% - The figures display the 3x3x3 determinant of the coarse and fine mesh. 
+% - A discussion on that although the coarse mesh has a lower minimal 3x3x3 determinant value, the fine mesh has a wider value distribution towards 0. 
+% - Therefore, the fine mesh is of lesser quality according to the 3x3x3 determinant figures.
+
+
+The 3x3x3 determinant is a metric used to evaluate the quality of a mesh by assessing the skewness and orthogonality of the cells in a localized 3x3x3 block around each node. Determinant values close to 1 indicate a high-quality mesh where cells are well-aligned and orthogonal, leading to reduced numerical errors and diffusion in computational fluid dynamics (CFD) simulations. Conversely, values significantly lower than 1 signal skewed or distorted cells, which can adversely affect the accuracy of the simulation results by introducing greater numerical diffusion. Thus, the 3x3x3 determinant is a key indicator for mesh refinement strategies. \\
+
+Figure \ref{fig:determinant} illustrates histograms of the 3x3x3 determinant values for the coarse and fine mesh. The horizontal axis represents the 3x3x3 determinant value, and the vertical axis represents the number of mesh elements within each domain. The blue vertical arrows indicate that the number of elements overflows the vertical axis of the figure. Upon examining the histograms, it is evident that while the coarse mesh has a lower minimal 3x3x3 determinant value, the fine mesh exhibits a broader distribution of determinant values skewing towards 0. This suggests that the fine mesh contains a higher number of elements with lesser quality, as indicated by their lower determinant values. \\
+
+Consequently, despite the fine mesh's higher resolution, its quality is slightly compromised according to the 3x3x3 determinant figures. More elements with low determinant values indicate that the fine mesh has more distorted elements, which can adversely affect the accuracy and stability of numerical simulations performed on the mesh. Therefore, considering the 3x3x3 determinant, the coarse mesh is of higher quality.
+
+
+
+\begin{figure}[H]
+  \centering
+  % Third pair of coarse and fine mesh images
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Fig/mesh_coarse_D.png}
+    \caption{Determinant coarse mesh}
+    \label{fig:coarseD}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Fig/mesh_fine_D.png}
+    \caption{Determinant fine mesh}
+    \label{fig:determinant}
+  \end{subfigure}
+  \caption{Histograms of the 3x3x3 determinant of the coarse and fine mesh, generated in ICEM CFD.}
+\end{figure}
+
+
+
+
+% - The mesh generation starts with creating a computational domain geometry in ICEM CFD, in this case, a rectangle, that accounts for sufficient area for the far-field to ensure the far-field boundary conditions do not influence the conditions at the two-element wing (Figure 1ab).
+% - Two O-grid block structures were formed from the rectangle, one around the wing part and one around the flap part of the two-element airfoil. The most challenging part of mesh generation was constructing the two O-grid blocks around the two separate elements while maintaining a structured grid with edges that continue to the far field (Figure 1cd). The mesh generation can be considered the most challenging and important part of the CFD simulation process. (provide technical reasons why).
+% - After constructing the two O-grid block structures, it is important to ensure orthogonality and non-skewness in the structured grid (explain shortly why). A block structure that essentially passes between the wing and the flap had to be developed to ensure orthogonality and non-skewness (Figure 2ab). This S-shape ensures the mesh continues from the airfoil region to the far-field region. A block structure around the downstream parts of the airfoil (find a better name on how to call this part) had to be developed to ensure orthogonality and non-skewness (Figure 2cd). This block structure is developed by collapsing blocks downstream, creating symmetry on the downstream part. This enables that the pointy part does not contribute to the skewness of the structured mesh.
+% - After creating the multiblock structure, the pre-mesh has to be defined. (shortly explain the meaning of pre-mesh in CFD). The pre-mesh is defined by setting up the edge parameters of the blocks. The edges of the blocks from the far-field to the O-grid block structures were defined with an exponential mesh law where the mesh develops from coarse to increasingly finer towards the O-grid block structure. The mesh is fine, close to the two-element airfoil and coarse in the far-field because we want to strike \section{Mesh Generation}
+% - The structured multiblock mesh is relatively coarse (Figure 1, 2) and is made relatively fine (Figure 1,2) using the refinement option. (shortly explain the refinement option in Ansys ICEM CFD) A refinement of the structured mesh is applied on the edges from the O-grid structure towards the wing and flap elements of the airfoil by a factor of 4 to ensure very fine mesh resolution. A refinement by a factor of 2 is defined on the edges surrounding the two elements of the airfoil, the O-grid block structure and the edge from the far-field to the O-grid block structure, to ensure a high-quality mesh and convergence in the solver.
+% - After creating the 2D structured multiblock, pre-mesh is translated from the xy-plane to the z-direction to a 3D structured multiblock by a distance of 0.0001m. Before the translation, the curves of the two-element airfoil and the rectangle of the far-field are translated in the z-direction by an equal distance to create 2D boundaries. The geometry and the blocking must be 3 dimensional since Ansys CFX can only compute 3 dimensional domains. The translation distance is very small to ensure the mesh remains parallel to the 2-dimensional plane. The coarse and fine mesh is then loaded from the blocking and exported for pre-processing.
+
+
+
+
